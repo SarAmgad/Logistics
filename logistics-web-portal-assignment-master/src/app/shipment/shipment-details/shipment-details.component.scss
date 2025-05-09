@@ -1,0 +1,44 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  flex: 1;
+}
+
+
+
+.not-valid{
+    /* color: red; */
+    /* background-color: blue; */
+    border-color: #ff00007d;
+    box-shadow: 0 0 0 .25rem #ff000029;
+}
+
+.not-valid-text {
+    color: rgb(206, 53, 53); 
+    font-size: 13px
+}
+
+//------------Status-----------------
+.status {
+    padding: .5rem 1rem;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.status.checkout {
+    background-color: #ffc107cf;
+    color: white;
+}
+
+  

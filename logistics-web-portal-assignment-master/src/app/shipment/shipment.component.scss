@@ -1,0 +1,60 @@
+//Override style in pagination-controls 
+::ng-deep .ngx-pagination {
+    margin-left: 0;
+    margin-bottom: 1rem;
+    margin-top: 1rem !important;
+  }
+
+
+.table-container {
+    width: 95%; 
+    margin: 0 auto; 
+}
+
+.delete-icon{
+    color: #c02828;
+    cursor: pointer;
+}
+
+.delivered-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #198754;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: default;
+}
+  
+
+//------------Status-----------------
+.status {
+    padding: .5rem 1rem;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+
+.status.ready {
+    background-color: #d0e3ff;
+    color: #0d6efd;
+}
+
+.status.checkout {
+    background-color: #fcf0cd;
+    color: #854f30;
+}
+
+.status.deliver {
+    background-color: #dae5da;
+    color: #3c763d;
+}
+
+  
+  
+  
+  

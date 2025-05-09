@@ -1,0 +1,90 @@
+<div class="modal fade" #shipmentModal id="shipmentModal" tabindex="-1" aria-labelledby="shipmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="shipmentModalLabel" style="margin-right: auto;">{{viewshipment ? 'Shipment Details' : 'Create New Shipment'}} </h5>
+          <div *ngIf="viewshipment" class="status btn" 
+            [ngClass]="{
+              'btn-primary': shipmentDetail.statusId === ShipmentStatus.Ready,  
+              'checkout': shipmentDetail.statusId === ShipmentStatus.Checkout,
+              'btn-success': shipmentDetail.statusId === ShipmentStatus.Delivered
+              }"
+            >
+            {{ shipmentDetail.status.name }}
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <form class="form" [formGroup]="createForm" (ngSubmit)="createShipment()">
+            <div class="row">
+              <div class="field col-6 mb-3">
+                <label class="label">Description</label>
+                <input 
+                  type="text" 
+                  class="form-control"  
+                  formControlName="description" 
+                  placeholder="Description..."
+                  [ngClass]="{
+                    'not-valid': createForm.get('description')?.invalid && createForm.get('description')?.touched
+                  }"
+                >
+                <div class="text" style="color: rgb(206, 53, 53); font-size: 13px" 
+                  *ngIf="createForm.get('description')?.invalid &&  createForm.get('description')?.touched">
+                  Description is required
+                </div>
+              </div>
+
+              <div class="field col-6 mb-3">
+                <label class="label">Phone Number</label>
+                <input type="text" 
+                  class="form-control" 
+                  formControlName="phoneNumber" 
+                  placeholder="Phone number..."
+                  #phone
+                  (keydown.enter)="createShipment()"
+                  [ngClass]="{
+                    'not-valid': createForm.get('phoneNumber')?.invalid && createForm.get('phoneNumber')?.touched
+                  }"
+                  >
+                <div class="text" style="color: rgb(206, 53, 53); font-size: 13px"
+                  *ngIf="createForm.get('phoneNumber')?.invalid && createForm.get('phoneNumber')?.touched">
+                  Enter a valid phone number that contain 10 to 15 digits and can start with '+'
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+          <div *ngIf="viewshipment">
+            <div class="row">
+              <div class="field col-6 mb-3">
+                <label class="label">Creation date</label>
+                <input type="text" 
+                  class="form-control"
+                  [value]="shipmentDetail.creationDate | date: ' MMM d, y, h:mm a'"
+                  disabled
+                  readonly>
+              </div>
+  
+              <div class="field col-6 mb-3">
+                <label class="label">{{shipmentDetail.statusId === ShipmentStatus.Ready ? 'Out for delivery' : shipmentDetail.status.name}}</label>
+                <input type="text" 
+                  class="form-control"
+                  [value]="shipmentDetail.modificationDate| date: ' MMM d, y, h:mm a'"
+                  disabled
+                  readonly>
+              </div>
+            </div>
+          
+        </div>
+
+        </div>
+        <div class="modal-footer">
+          
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button *ngIf="!viewshipment" type="button" class="btn btn-primary" (click)="createShipment()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

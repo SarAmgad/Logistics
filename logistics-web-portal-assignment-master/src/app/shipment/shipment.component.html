@@ -1,0 +1,127 @@
+<header class="container-fluid bg-primary text-white p-4 mb-2">
+  <div class="d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Logistics Management System</h3>
+    <button class="btn btn-light" (click)="openPopUp()">New</button>
+    
+  </div>
+</header>
+
+<div class="table-container">
+  <table class="table table-striped  mx-auto">
+    <thead>
+      <tr class="text-center">
+        <th></th>
+        <th>Tracking ID</th>
+
+        <th class="text-center position-relative">
+          Description
+          <div class="d-inline-block position-relative">
+            <button class="btn btn-link p-0 ms-2" (click)="toggleDescriptionDropdown()">
+              <i class="fa fa-search"></i>
+            </button>
+
+            <div *ngIf="isDescriptionFilterOpen" class="dropdown-menu p-2 show mt-1 end-0" style="min-width: 200px;">
+              <input
+                type="text"
+                [(ngModel)]="descriptionFilter"
+                class="form-control"
+                placeholder="Search description"
+                (keyup)="searchByDescription();"
+                (keydown.enter)="searchByDescription(); toggleDescriptionDropdown()"
+              />
+            </div>
+          </div>
+        </th>
+
+
+        <th class="text-center position-relative">
+          Status
+          <div class="d-inline-block position-relative">
+            <button class="btn btn-link p-0 ms-2" (click)="toggleDropdown()">
+              <i class="fa fa-search"></i>
+            </button>
+
+            <ul *ngIf="isStatusFilterOpen" class="dropdown-menu show mt-1">
+              <li>
+                <a class="dropdown-item" (click)="searchByStatus(); toggleDropdown()">All</a>
+              </li>
+              <li *ngFor="let status of statusList">
+                <a class="dropdown-item" (click)="searchByStatus(status.id); toggleDropdown()">
+                  {{ status.name }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </th>
+
+        <th>Creation date</th>
+        <th>Next Step</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let shipment of shipments | paginate: { id: 'paginationAllData',
+            itemsPerPage: pageSize,
+            currentPage: pageNo,
+            totalItems: totalCount}"> 
+        <tr class="text-center">
+          <td> <i class="fa-solid fa-eye" style="cursor: pointer;" title="View details" (click)="viewShipmentDetail(shipment)"></i></td>
+          <td class="text-center">{{ shipment.trackingId }}</td>
+          <td>{{ shipment.description }}</td>
+
+          <td class="text-center">
+            <div class="status" 
+              [ngClass]="{
+                'ready': shipment.statusId === ShipmentStatus.Ready,  
+                'checkout': shipment.statusId === ShipmentStatus.Checkout,
+                'deliver': shipment.statusId === ShipmentStatus.Delivered
+              }"
+            >
+              {{ shipment.status.name }}
+            </div>
+          </td>
+
+          <td>{{ shipment.creationDate | date: ' MMM d, y, h:mm a' }}</td>
+
+          <td class="text-center">
+            <button *ngIf="shipment.statusId !== ShipmentStatus.Delivered"
+                    class="btn rounded-pill"
+                    [ngClass]="{
+                      'btn-outline-primary': shipment.statusId === ShipmentStatus.Ready,
+                      'btn-outline-success': shipment.statusId === ShipmentStatus.Checkout
+                    }"
+                    (click)="openConfirmPopUp(shipment)">
+              {{ shipment.statusId === ShipmentStatus.Ready ? 'Checkout' : 'Delivered' }}
+            </button>
+            <button *ngIf="shipment.statusId == ShipmentStatus.Delivered" class="delivered-btn">✓</button>
+          </td>
+
+          <td>
+            <i class="fa-solid fa-trash delete-icon" (click)="deletePopUp(shipment.id)" 
+            data-bs-toggle="tooltip" title="Delete"></i>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex align-items-center mr-3">
+      <label for="itemsPerPage" style="white-space: nowrap; margin-right: 1.5rem;">Items per page:</label>
+      <select id="itemsPerPage" class="form-select" [(ngModel)]="pageSize" (change)="getShipments()">
+        <option *ngFor="let size of [5, 10, 15, 20, 50]" [value]="size">{{ size }}</option>
+        <option [value]="totalCount">All</option>
+      </select>
+    </div>
+  
+    <div>
+      <pagination-controls (pageChange)="getShipments($event)" id="paginationAllData"></pagination-controls>
+    </div>
+        <div class="ms-3">
+      <button class="btn btn-outline-secondary" (click)="resetFilters()">Reset</button>
+    </div>
+</div>
+
+
+<app-shipment-details #detailModal></app-shipment-details>
