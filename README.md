@@ -63,10 +63,13 @@ This will start the Angular frontend on http://localhost:4200
 ## 📸 Screenshots
 
 ### Main Dashboard
-![Dashboard Screenshot](images/dashboard.png)
+![Dashboard Screenshot](assets/dashboard.png)
 
 ### Create Shipment Modal
-![New Shipment Modal](images/new-shipment.png)
+![New Shipment Modal](assets/new-shipment.png)
+
+### View Shipment Details
+![Shipment Details](assets/shipment-details.png)
 
 ---
 
