@@ -2,6 +2,20 @@
 
 A single-page logistics system that enables merchants to manage and track their shipments through a simple, intuitive interface.
 
+---
+
+## 📚 Table of Contents
+
+- [📦 Project Overview](#-project-overview)
+- [🛠 Tech Stack](#-tech-stack)
+- [🚀 Setup Instructions](#-setup-instructions)
+  - [Backend Setup](#1-backend-setup)
+  - [Frontend Setup](#2-frontend-setup)
+- [✅ Usage](#-usage)
+- [📸 Screenshots](#-screenshots)
+
+---
+
 ## 📦 Project Overview
 
 This application allows merchants to:
