@@ -11,8 +11,8 @@ A single-page logistics system that enables merchants to manage and track their 
 - [🚀 Setup Instructions](#-setup-instructions)
   - [Backend Setup](#1-backend-setup)
   - [Frontend Setup](#2-frontend-setup)
-- [✅ Usage](#-usage)
 - [📸 Screenshots](#-screenshots)
+- [✅ Usage](#-usage)
 
 ---
 
